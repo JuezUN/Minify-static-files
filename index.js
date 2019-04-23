@@ -2,19 +2,29 @@ const fs = require('fs');
 const js_minifier = require("terser");
 const CleanCSS = require('clean-css');
 
-const base_path = "../INGInious/inginious/frontend/plugins";
-const UNCode_plugin_path = base_path + "/UNCode/static";
-const UN_template_plugin_path = base_path + "/UN_template/static";
-const statistics_plugin_path = base_path + "/statistics/static";
-const register_students_plugin_path = base_path + "/register_students/static";
-const multilang_plugin_path = base_path + "/multilang/static";
-const grader_generator_plugin_path = base_path + "/grader_generator/static";
-const custom_input_plugin_path = base_path + "/custom_input/static";
+const _BASE_PATH = "../INGInious/inginious/frontend/plugins";
+const UNCODE_PLUGIN_PATH = _BASE_PATH + "/UNCode/static";
+const UN_TEMPLATE_PLUGIN_PATH = _BASE_PATH + "/UN_template/static";
+const STATISTICS_PLUGIN_PATH = _BASE_PATH + "/statistics/static";
+const REGISTER_STUDENTS_PLUGIN_PATH = _BASE_PATH + "/register_students/static";
+const MULTILANG_PLUGIN_PATH = _BASE_PATH + "/multilang/static";
+const GRADER_GENERATOR_PLUGIN_PATH = _BASE_PATH + "/grader_generator/static";
+const CUSTOM_INPUT_PLUGIN_PATH = _BASE_PATH + "/custom_input/static";
 
+/**
+ * Read file synchronously.
+ * @param file_name
+ * @returns String containing the read text.
+ */
 function read_file(file_name) {
     return fs.readFileSync(file_name, "utf8");
 }
 
+/**
+ * Read all js files.
+ * @param js_files Array containing the path of every file.
+ * @returns Object where the key is the file path and value is a string with the read file.
+ */
 function read_js_files(js_files) {
     let js_code = {};
     js_files.forEach(file => {
@@ -23,6 +33,11 @@ function read_js_files(js_files) {
     return js_code;
 }
 
+/**
+ * Write file asynchronously with the minified text.
+ * @param file_name e.g /INGInious/inginious/frontend/plugins/UNCode/static/js/test.js
+ * @param data Minified text to be wrote in the file.
+ */
 function write_file(file_name, data) {
     fs.writeFile(file_name, data, "utf8", (err) => {
         if (err) {
@@ -33,6 +48,12 @@ function write_file(file_name, data) {
     });
 }
 
+/**
+ * Generates minified text from the given files and writes the result into a new file.
+ * @param css_files
+ * @param output_file_path Location for the new file.
+ * @param output_file_name Name for the new file (Without file extensions).
+ */
 function minify_css_files(css_files, output_file_path, output_file_name) {
     let result = new CleanCSS().minify(css_files);
     if (result.errors.length) {
@@ -42,6 +63,12 @@ function minify_css_files(css_files, output_file_path, output_file_name) {
     }
 }
 
+/**
+ * Generates minified text from the given files and writes the result into a new file.
+ * @param js_files
+ * @param output_file_path Location for the new file.
+ * @param output_file_name Name for the new file (Without file extensions).
+ */
 function minify_js_files(js_files, output_file_path, output_file_name) {
     let js_code = read_js_files(js_files);
     let result = js_minifier.minify(js_code);
@@ -61,8 +88,8 @@ function parse_js_files_callback(file_path, name) {
 }
 
 function minify_UNCode() {
-    const js_files_path = UNCode_plugin_path + "/js/";
-    const css_files_path = UNCode_plugin_path + "/css/";
+    const js_files_path = UNCODE_PLUGIN_PATH + "/js/";
+    const css_files_path = UNCODE_PLUGIN_PATH + "/css/";
     const js_files = ["task_files_upload_multiple", "uncode"].map(name => {
         return parse_js_files_callback(js_files_path, name)
     });
@@ -78,8 +105,8 @@ function minify_UNCode() {
 }
 
 function minify_UN_Template() {
-    const js_files_path = UN_template_plugin_path + "/js/";
-    const css_files_path = UN_template_plugin_path + "/css/";
+    const js_files_path = UN_TEMPLATE_PLUGIN_PATH + "/js/";
+    const css_files_path = UN_TEMPLATE_PLUGIN_PATH + "/css/";
     const js_files = ["unal"].map(name => {
         return parse_js_files_callback(js_files_path, name)
     });
@@ -95,8 +122,8 @@ function minify_UN_Template() {
 }
 
 function minify_statistics() {
-    const js_files_path = statistics_plugin_path + "/js/";
-    const css_files_path = statistics_plugin_path + "/css/";
+    const js_files_path = STATISTICS_PLUGIN_PATH + "/js/";
+    const css_files_path = STATISTICS_PLUGIN_PATH + "/css/";
     const css_files = ["statistics"].map(name => {
         return parse_css_files_callback(css_files_path, name)
     });
@@ -117,8 +144,8 @@ function minify_statistics() {
 }
 
 function minify_register_students() {
-    const js_files_path = register_students_plugin_path + "/js/";
-    const css_files_path = register_students_plugin_path + "/css/";
+    const js_files_path = REGISTER_STUDENTS_PLUGIN_PATH + "/js/";
+    const css_files_path = REGISTER_STUDENTS_PLUGIN_PATH + "/css/";
     const js_files = ["register"].map(name => {
         return parse_js_files_callback(js_files_path, name)
     });
@@ -134,8 +161,8 @@ function minify_register_students() {
 }
 
 function minify_multilang() {
-    const js_files_path = multilang_plugin_path + "/";
-    const css_files_path = multilang_plugin_path + "/";
+    const js_files_path = MULTILANG_PLUGIN_PATH + "/";
+    const css_files_path = MULTILANG_PLUGIN_PATH + "/";
 
     console.log("Minify 'multilang' static files.");
 
@@ -161,7 +188,7 @@ function minify_multilang() {
 }
 
 function minify_grader_generator() {
-    const js_files_path = grader_generator_plugin_path + "/js/";
+    const js_files_path = GRADER_GENERATOR_PLUGIN_PATH + "/js/";
     const js_files = ["grader_generator"].map(name => {
         return parse_js_files_callback(js_files_path, name)
     });
@@ -172,7 +199,7 @@ function minify_grader_generator() {
 }
 
 function minify_custom_input() {
-    const js_files_path = custom_input_plugin_path + "/";
+    const js_files_path = CUSTOM_INPUT_PLUGIN_PATH + "/";
     const js_files = ["custom_input"].map(name => {
         return parse_js_files_callback(js_files_path, name)
     });
