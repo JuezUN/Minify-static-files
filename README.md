@@ -23,7 +23,9 @@ Bear in mind that some plugins have more than one minified file.
 ### How to run
 
 Download or clone this repository where you have the INGInious repository (Not inside the INGInious folder).
- 
+
+In case, you can change the variable *_BASE_PATH*  in the code with the location of INGInious code.
+
 First of all, check you have installed node, otherwise, proceed to install the latest version before moving forward.
 
 Run the next, inside the folder:
