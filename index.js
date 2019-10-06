@@ -10,6 +10,7 @@ const REGISTER_STUDENTS_PLUGIN_PATH = _BASE_PATH + "/register_students/static";
 const MULTILANG_PLUGIN_PATH = _BASE_PATH + "/multilang/static";
 const GRADER_GENERATOR_PLUGIN_PATH = _BASE_PATH + "/grader_generator/static";
 const CUSTOM_INPUT_PLUGIN_PATH = _BASE_PATH + "/custom_input/static";
+const CODE_PREVIEW_PLUGIN_PATH = _BASE_PATH + "/code_preview/static"
 
 /**
  * Read file synchronously.
@@ -209,6 +210,18 @@ function minify_custom_input() {
     minify_js_files(js_files, js_files_path, "custom_input");
 }
 
+function minify_code_preview() {
+	const js_files_path = CODE_PREVIEW_PLUGIN_PATH + "/js/";
+	const js_files = ["code_preview_load"].map(name => {
+		return parse_js_files_callback(js_files_path, name)
+	});
+
+	console.log("Minfy 'code_preview' static files.");
+
+	minify_js_files(js_files, js_files_path, "code_preview_load")
+
+}
+
 minify_UNCode();
 minify_UN_Template();
 minify_statistics();
@@ -216,3 +229,4 @@ minify_register_students();
 minify_multilang();
 minify_grader_generator();
 minify_custom_input();
+minify_code_preview();
