@@ -91,7 +91,7 @@ function parse_js_files_callback(file_path, name) {
 function minify_UNCode() {
     const js_files_path = UNCODE_PLUGIN_PATH + "/js/";
     const css_files_path = UNCODE_PLUGIN_PATH + "/css/";
-    const js_files = ["task_files_upload_multiple", "uncode"].map(name => {
+    const js_files = ["task_files_tab", "uncode"].map(name => {
         return parse_js_files_callback(js_files_path, name)
     });
     const css_files = ["uncode"].map(name => {
