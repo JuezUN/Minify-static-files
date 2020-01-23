@@ -190,7 +190,7 @@ function minify_multilang() {
 
 function minify_grader_generator() {
     const js_files_path = GRADER_GENERATOR_PLUGIN_PATH + "/js/";
-    const js_files = ["grader_generator"].map(name => {
+    const js_files = ["grader_generator", "notebook_grader_generator"].map(name => {
         return parse_js_files_callback(js_files_path, name)
     });
 
