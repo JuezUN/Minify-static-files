@@ -177,6 +177,11 @@ function minify_multilang() {
     });
     minify_js_files(js_files, js_files_path, "multilang");
 
+    js_files = ["hdlgrader"].map(name => {
+        return parse_js_files_callback(js_files_path, name)
+    });
+    minify_js_files(js_files, js_files_path, "hdlgrader");
+
     let css_files = ["lint"].map(name => {
         return parse_css_files_callback(css_files_path, name)
     });
