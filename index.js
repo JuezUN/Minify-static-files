@@ -10,7 +10,8 @@ const REGISTER_STUDENTS_PLUGIN_PATH = _BASE_PATH + "/register_students/static";
 const MULTILANG_PLUGIN_PATH = _BASE_PATH + "/multilang/static";
 const GRADER_GENERATOR_PLUGIN_PATH = _BASE_PATH + "/grader_generator/static";
 const CUSTOM_INPUT_PLUGIN_PATH = _BASE_PATH + "/custom_input/static";
-const CODE_PREVIEW_PLUGIN_PATH = _BASE_PATH + "/code_preview/static"
+const CODE_PREVIEW_PLUGIN_PATH = _BASE_PATH + "/code_preview/static";
+const ANALYTICS_PLUGIN_PATH = _BASE_PATH + "/analytics/static";
 
 /**
  * Read file synchronously.
@@ -216,15 +217,31 @@ function minify_custom_input() {
 }
 
 function minify_code_preview() {
-	const js_files_path = CODE_PREVIEW_PLUGIN_PATH + "/js/";
-	const js_files = ["code_preview_load"].map(name => {
-		return parse_js_files_callback(js_files_path, name)
-	});
+    const js_files_path = CODE_PREVIEW_PLUGIN_PATH + "/js/";
+    const js_files = ["code_preview_load"].map(name => {
+        return parse_js_files_callback(js_files_path, name)
+    });
 
-	console.log("Minfy 'code_preview' static files.");
+    console.log("Minfy 'code_preview' static files.");
 
-	minify_js_files(js_files, js_files_path, "code_preview_load")
+    minify_js_files(js_files, js_files_path, "code_preview_load")
+}
 
+function minify_analytics() {
+    const js_files_path = ANALYTICS_PLUGIN_PATH + "/js/";
+    const css_files_path = ANALYTICS_PLUGIN_PATH + "/css/";
+    const js_files = ["analytics", "box_plot", "calendar_view", "radar", "time_series"].map(name => {
+        return parse_js_files_callback(js_files_path, name)
+    });
+
+    const css_files = ["analytics"].map(name => {
+        return parse_css_files_callback(css_files_path, name)
+    });
+
+    console.log("Minfy 'analytics' static files.");
+
+    minify_js_files(js_files, js_files_path, "analytics");
+    minify_css_files(css_files, css_files_path, "analytics");
 }
 
 minify_UNCode();
@@ -235,3 +252,4 @@ minify_multilang();
 minify_grader_generator();
 minify_custom_input();
 minify_code_preview();
+minify_analytics();
