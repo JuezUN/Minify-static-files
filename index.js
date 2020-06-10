@@ -240,8 +240,8 @@ function minify_analytics() {
 
     console.log("Minfy 'analytics' static files.");
 
-    minify_js_files(js_files, js_files_path, "analytics_1");
-    minify_css_files(css_files, css_files_path, "analytics_1");
+    minify_js_files(js_files, js_files_path, "analytics");
+    minify_css_files(css_files, css_files_path, "analytics");
 }
 
 minify_UNCode();
