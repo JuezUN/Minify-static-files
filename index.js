@@ -12,6 +12,7 @@ const GRADER_GENERATOR_PLUGIN_PATH = _BASE_PATH + "/grader_generator/static";
 const CUSTOM_INPUT_PLUGIN_PATH = _BASE_PATH + "/custom_input/static";
 const CODE_PREVIEW_PLUGIN_PATH = _BASE_PATH + "/code_preview/static";
 const ANALYTICS_PLUGIN_PATH = _BASE_PATH + "/analytics/static";
+const PLAGIARISM_PLUGIN_PATH = _BASE_PATH + "/plagiarism/static";
 
 /**
  * Read file synchronously.
@@ -222,7 +223,7 @@ function minify_code_preview() {
         return parse_js_files_callback(js_files_path, name)
     });
 
-    console.log("Minfy 'code_preview' static files.");
+    console.log("Minify 'code_preview' static files.");
 
     minify_js_files(js_files, js_files_path, "code_preview_load")
 }
@@ -238,10 +239,22 @@ function minify_analytics() {
         return parse_css_files_callback(css_files_path, name)
     });
 
-    console.log("Minfy 'analytics' static files.");
+    console.log("Minify 'analytics' static files.");
 
     minify_js_files(js_files, js_files_path, "analytics");
     minify_css_files(css_files, css_files_path, "analytics");
+}
+
+function minify_plagiarism() {
+    const css_files_path = PLAGIARISM_PLUGIN_PATH + "/css/";
+
+    const css_files = ["plagiarism"].map(name => {
+        return parse_css_files_callback(css_files_path, name)
+    });
+
+    console.log("Minify 'plagiarism' static files.");
+
+    minify_css_files(css_files, css_files_path, "plagiarism");
 }
 
 minify_UNCode();
@@ -253,3 +266,4 @@ minify_grader_generator();
 minify_custom_input();
 minify_code_preview();
 minify_analytics();
+minify_plagiarism();
